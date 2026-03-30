@@ -109,9 +109,8 @@ st.markdown("""
 # ------------------------------------------------
 @st.cache_resource
 def load_models():
-    lstm = load_model("./dashboard/lstm_model.h5", compile=False)
-    xgb  = joblib.load("./dashboard/xgb_model.pkl")
-    return lstm, xgb
+    xgb = joblib.load("./dashboard/xgb_model.pkl")
+    return xgb
 
 @st.cache_data
 def load_data():
@@ -121,7 +120,7 @@ def load_data():
     df["season_label"] = df["season_encoded"].map(season_map)
     return df
 
-lstm_model, xgb_model = load_models()
+xgb_model = load_models()
 df = load_data()
 
 lstm_features = ["market_value_eur","attacking_output_index","injury_burden_index",
