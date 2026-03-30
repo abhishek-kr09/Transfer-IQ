@@ -27,74 +27,71 @@ st.markdown("""
 #MainMenu, footer, header { visibility: hidden; }
 .block-container { padding-top: 0rem; padding-bottom: 0rem; }
 
-/* full page min height so footer stays at bottom */
-[data-testid="stAppViewContainer"] {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-[data-testid="stVerticalBlock"] {
-    flex: 1;
-}
-
 .navbar {
     background: #1a50a3;
     padding: 14px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 0;
 }
 .navbar-brand { color: white; font-size: 22px; font-weight: 700; letter-spacing: 1px; }
 .navbar-sub   { color: rgba(255,255,255,0.7); font-size: 13px; }
 
-.footer {
-    background: #1a50a3;
-    color: rgba(255,255,255,0.7);
-    text-align: center;
-    padding: 14px;
-    font-size: 12px;
-    margin-top: 40px;
-    width: 100%;
-}
-
+/* metric cards — work in both light and dark mode */
 .metric-card {
-    background: #f0f4ff;
     border-left: 4px solid #1a50a3;
     border-radius: 8px;
-    padding: 18px 24px;
+    padding: 20px 24px;
     margin-bottom: 16px;
+    background: rgba(26,80,163,0.08);
+    border-top: 0.5px solid rgba(26,80,163,0.2);
+    border-right: 0.5px solid rgba(26,80,163,0.2);
+    border-bottom: 0.5px solid rgba(26,80,163,0.2);
 }
-.metric-label { font-size: 13px; color: #666; margin-bottom: 4px; }
-.metric-value { font-size: 36px; font-weight: 700; color: #1a50a3; }
-.metric-sub   { font-size: 12px; color: #888; margin-top: 4px; }
+.metric-label { font-size: 13px; color: #888; margin-bottom: 6px; }
+.metric-value { font-size: 38px; font-weight: 700; color: #1a50a3; line-height: 1.1; }
+.metric-sub   { font-size: 12px; color: #888; margin-top: 6px; }
 
+/* player header */
 .player-header {
     background: linear-gradient(135deg, #1a50a3 0%, #1a7340 100%);
-    color: white; padding: 30px 40px;
-    border-radius: 12px; margin-bottom: 24px;
+    color: white; padding: 28px 36px;
+    border-radius: 12px; margin-bottom: 20px;
 }
-.player-name-big { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
-.player-meta { font-size: 14px; opacity: 0.85; }
+.player-name-big { font-size: 30px; font-weight: 700; margin-bottom: 6px; }
+.player-meta { font-size: 14px; opacity: 0.85; letter-spacing: 0.3px; }
 
-/* season button active state */
-div[data-testid="stButton"] button[kind="secondary"].season-active {
-    background: #1a50a3 !important;
-    color: white !important;
+/* force season active button to be blue — override Streamlit's red primary */
+div[data-testid="stButton"] > button[kind="primary"] {
+    background-color: #1a50a3 !important;
     border-color: #1a50a3 !important;
+    color: white !important;
+}
+div[data-testid="stButton"] > button[kind="primary"]:hover {
+    background-color: #1540824 !important;
+    border-color: #154082 !important;
 }
 
-/* search result list */
-.player-result {
-    padding: 10px 14px;
-    border: 0.5px solid #ddd;
-    border-radius: 6px;
-    margin-bottom: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    background: white;
+/* footer fixed at bottom */
+.footer {
+    position: fixed;
+    left: 0; bottom: 0;
+    width: 100%;
+    background: #1a50a3;
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    z-index: 999;
 }
-.player-result:hover { background: #f0f4ff; }
+
+/* home page vertical centering */
+.home-wrap {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -398,21 +395,8 @@ elif st.session_state.page == "player":
 # Footer
 # ------------------------------------------------
 st.markdown("""
-    <style>
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background-color: #1a50a3; /* Match your theme */
-        color: black;
-        text-align: center;
-        padding: 10px;
-        z-index: 100;
-    }
-    </style>
-    <div class="footer">
-        TransferIQ &nbsp;|&nbsp; Football Player Market Value Prediction &nbsp;|&nbsp;
-        Ensemble Model (LSTM + XGBoost) &nbsp;|&nbsp; 2026
-    </div>
-    """, unsafe_allow_html=True)
+<div class="footer">
+    TransferIQ &nbsp;|&nbsp; Football Player Market Value Prediction &nbsp;|&nbsp;
+    Ensemble Model (LSTM + XGBoost) &nbsp;|&nbsp; 2026
+</div>
+""", unsafe_allow_html=True)
