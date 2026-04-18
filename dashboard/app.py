@@ -22,73 +22,280 @@ st.set_page_config(
 # ------------------------------------------------
 st.markdown("""
 <style>
+:root {
+    --tiq-blue: #0f3f89;
+    --tiq-blue-2: #1c5fc5;
+    --tiq-cyan: #2ea7d8;
+    --tiq-green: #17704b;
+    --tiq-ink-0: #050914;
+    --tiq-ink-1: #0a1224;
+    --tiq-ink-2: #111c32;
+    --tiq-text: #e7eefc;
+    --tiq-muted: #9aa9c4;
+    --tiq-border: rgba(100, 136, 204, 0.28);
+    --tiq-shadow: 0 18px 38px rgba(2, 7, 19, 0.55);
+}
+
 #MainMenu, footer, header { visibility: hidden; }
-.block-container { padding-top: 0rem; padding-bottom: 0rem; }
+
+.stApp {
+    background:
+        radial-gradient(1050px 560px at 4% -12%, rgba(28, 95, 197, 0.28) 0%, transparent 56%),
+        radial-gradient(900px 380px at 100% 0%, rgba(23, 112, 75, 0.22) 0%, transparent 58%),
+        linear-gradient(180deg, var(--tiq-ink-0) 0%, var(--tiq-ink-1) 56%, #0d182c 100%);
+    color: var(--tiq-text);
+}
+
+.block-container {
+    padding-top: 0.2rem;
+    padding-bottom: 3.2rem;
+    max-width: 1100px;
+}
 
 .navbar {
-    background: #1a50a3;
-    padding: 14px 40px;
+    background: linear-gradient(120deg, #113a7d 0%, #1a56b2 52%, #166a48 100%);
+    box-shadow: 0 12px 24px rgba(3, 10, 24, 0.45);
+    padding: 12px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid rgba(203, 220, 255, 0.22);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
-.navbar-brand { color: white; font-size: 22px; font-weight: 700; letter-spacing: 1px; }
-.navbar-sub   { color: rgba(255,255,255,0.7); font-size: 13px; }
 
-/* metric cards — work in both light and dark mode */
+.navbar-brand {
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+.navbar-sub {
+    color: rgba(232, 241, 255, 0.9);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+}
+
+.search-title {
+    color: #edf4ff;
+    margin-bottom: 0.35rem;
+    font-size: 1.9rem;
+}
+
+/* dark selectbox surface and text */
+div[data-baseweb="select"] > div:first-child {
+    background: linear-gradient(145deg, #10192c 0%, #0b1322 100%) !important;
+    border: 1px solid rgba(120, 154, 224, 0.34) !important;
+    border-radius: 10px !important;
+    min-height: 44px !important;
+    box-shadow: inset 0 1px 0 rgba(190, 210, 255, 0.08);
+}
+
+div[data-baseweb="select"] span,
+div[data-baseweb="select"] input {
+    color: #e7eeff !important;
+}
+
+div[data-baseweb="select"] svg {
+    color: #b8cdf9 !important;
+}
+
 .metric-card {
-    border-left: 4px solid #1a50a3;
-    border-radius: 8px;
-    padding: 20px 24px;
-    margin-bottom: 16px;
-    background: rgba(26,80,163,0.08);
-    border-top: 0.5px solid rgba(26,80,163,0.2);
-    border-right: 0.5px solid rgba(26,80,163,0.2);
-    border-bottom: 0.5px solid rgba(26,80,163,0.2);
+    border: 1px solid var(--tiq-border);
+    border-left: 5px solid #2a7cf3;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    background: linear-gradient(145deg, rgba(16, 28, 49, 0.95), rgba(12, 21, 39, 0.95));
+    box-shadow: var(--tiq-shadow);
 }
-.metric-label { font-size: 13px; color: #888; margin-bottom: 6px; }
-.metric-value { font-size: 38px; font-weight: 700; color: #1a50a3; line-height: 1.1; }
-.metric-sub   { font-size: 12px; color: #888; margin-top: 6px; }
 
-/* player header */
-.player-header {
-    background: linear-gradient(135deg, #1a50a3 0%, #1a7340 100%);
-    color: white; padding: 28px 36px;
-    border-radius: 12px; margin-bottom: 20px;
+.metric-label {
+    font-size: 12px;
+    color: var(--tiq-muted);
+    margin-bottom: 6px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
 }
-.player-name-big { font-size: 30px; font-weight: 700; margin-bottom: 6px; }
-.player-meta { font-size: 14px; opacity: 0.85; letter-spacing: 0.3px; }
+
+.metric-value {
+    font-size: 30px;
+    font-weight: 800;
+    color: #dbe8ff;
+    line-height: 1.08;
+}
+
+.metric-sub {
+    font-size: 12px;
+    color: #8fa1bf;
+    margin-top: 7px;
+}
+
+.player-header {
+    background:
+        radial-gradient(420px 220px at 88% 18%, rgba(255, 255, 255, 0.16) 0%, transparent 62%),
+        linear-gradient(128deg, #0f3f89 0%, #1c5fc5 44%, #17704b 100%);
+    color: white;
+    padding: 20px 22px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    box-shadow: 0 14px 34px rgba(8, 34, 73, 0.24);
+}
+
+.player-name-big {
+    font-size: 27px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+
+.player-meta {
+    font-size: 13px;
+    opacity: 0.92;
+    letter-spacing: 0.25px;
+}
+
+div[data-testid="stButton"] > button {
+    border-radius: 12px;
+    border-width: 1px;
+    font-weight: 700;
+    min-height: 41px;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
 
 /* force season active button to be blue — override Streamlit's red primary */
 div[data-testid="stButton"] > button[kind="primary"] {
-    background-color: #1a50a3 !important;
-    border-color: #1a50a3 !important;
-    color: white !important;
-}
-div[data-testid="stButton"] > button[kind="primary"]:hover {
-    background-color: #1540824 !important;
-    border-color: #154082 !important;
+    background: linear-gradient(120deg, #1449a3 0%, #1c62cd 64%, #2190cf 100%) !important;
+    border-color: rgba(155, 191, 255, 0.36) !important;
+    color: #f4f8ff !important;
+    box-shadow: 0 10px 20px rgba(10, 40, 95, 0.45);
 }
 
-/* footer fixed at bottom */
+div[data-testid="stButton"] > button[kind="primary"]:hover {
+    background: linear-gradient(120deg, #0f3d8e 0%, #1955b1 64%, #1f7eb6 100%) !important;
+    border-color: rgba(155, 191, 255, 0.5) !important;
+    transform: translateY(-1px);
+}
+
+div[data-testid="stButton"] > button[kind="secondary"] {
+    background: linear-gradient(140deg, #0e1627 0%, #0a1220 100%) !important;
+    border-color: rgba(119, 145, 198, 0.34) !important;
+    color: #dce8ff !important;
+    box-shadow: none;
+}
+
+div[data-testid="stButton"] > button[kind="secondary"]:hover {
+    background: linear-gradient(140deg, #121d34 0%, #0d1629 100%) !important;
+    border-color: rgba(143, 174, 238, 0.48) !important;
+    color: #f0f6ff !important;
+}
+
 .footer {
     position: fixed;
-    left: 0; bottom: 0;
+    left: 0;
+    bottom: 0;
     width: 100%;
-    background: #1a50a3;
-    color: rgba(255,255,255,0.8);
+    background: linear-gradient(100deg, #0f3f89 0%, #1a56b3 50%, #17704b 100%);
+    color: rgba(239, 245, 255, 0.9);
     text-align: center;
-    padding: 10px;
-    font-size: 12px;
+    padding: 8px 10px;
+    font-size: 11px;
     z-index: 999;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
 }
 
-/* home page vertical centering */
 .home-wrap {
     min-height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 900px) {
+    .navbar {
+        padding: 14px 18px;
+        flex-direction: column;
+        gap: 3px;
+        align-items: flex-start;
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .navbar-sub {
+        font-size: 12px;
+    }
+
+    div[data-baseweb="select"] > div:first-child {
+        min-height: 42px !important;
+    }
+
+    .player-header {
+        padding: 16px 14px;
+        border-radius: 12px;
+    }
+
+    .player-name-big {
+        font-size: 22px;
+    }
+
+    .player-meta {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .metric-card {
+        padding: 12px 12px;
+    }
+
+    .metric-value {
+        font-size: 24px;
+    }
+
+    .footer {
+        position: static;
+        margin-top: 22px;
+    }
+
+    .block-container {
+        padding-bottom: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .block-container {
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+    }
+
+    .navbar {
+        padding: 12px 14px;
+    }
+
+    .navbar-brand {
+        font-size: 17px;
+    }
+
+    .navbar-sub {
+        font-size: 11px;
+    }
+
+    .metric-value {
+        font-size: 22px;
+    }
+
+    div[data-testid="stButton"] > button {
+        min-height: 40px;
+        font-size: 0.9rem;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -186,25 +393,21 @@ def get_ensemble_preds(player_name, future_seasons_all):
 # ================================================
 if st.session_state.page == "home":
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<div style='height:0.2rem'></div>", unsafe_allow_html=True)
 
-    col_l, col_c, col_r = st.columns([1, 3, 1])
+    col_l, col_c, col_r = st.columns([1.25, 2.5, 1.25])
     with col_c:
-        st.markdown("### 🔍 Search Player")
+        st.markdown("<h3 class='search-title'>🔍 Search Player</h3>", unsafe_allow_html=True)
 
         # Native selectbox — has built-in search/filter as you type
         selected_player = st.selectbox(
             "Player",
-            options=[""] + all_players,
-            index=0,
+            options=all_players,
+            index=None,
             placeholder="Type to search player...",
-            format_func=lambda x: "Type to search player..." if x == "" else x,
             label_visibility="collapsed",
         )
-        if selected_player == "":
-            selected_player = None
-
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<div style='height:0.3rem'></div>", unsafe_allow_html=True)
 
         # Season selector with active color
         st.markdown("**Select Future Season**")
@@ -219,7 +422,7 @@ if st.session_state.page == "home":
                     st.session_state.season = s
                     st.rerun()
 
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<div style='height:0.25rem'></div>", unsafe_allow_html=True)
 
         if selected_player:
             if st.button("🔎 View Player Analysis", type="primary", use_container_width=True):
